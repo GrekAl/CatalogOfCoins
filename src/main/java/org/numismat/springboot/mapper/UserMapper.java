@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface UserMapper {
 	
-	@Select("SELECT * FROM public.user WHERE login = #{login}")
+//	@Select("SELECT * FROM public.user WHERE login = #{login}")
     User getUserByLogin(@Param("login") String login);
 
 }

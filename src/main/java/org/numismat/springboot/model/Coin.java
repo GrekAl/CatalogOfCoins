@@ -2,16 +2,16 @@ package org.numismat.springboot.model;
 
 public class Coin {
 	
-	private int id;
+	private Integer id;
 	private String currency;
-	private int value;
-	private int year;
+	private Integer value;
+	private Integer year;
 	private String mint;
 	
 	public Coin() {
 		
 	}
-	public Coin(int id, String currency, int value, int year, String mint) {
+	public Coin(Integer id, String currency, Integer value, Integer year, String mint) {
 		super();
 		this.id = id;
 		this.currency = currency;
@@ -20,10 +20,10 @@ public class Coin {
 		this.mint = mint;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getCurrency() {
@@ -32,16 +32,16 @@ public class Coin {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
-	public void setValue(int value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 	public String getMint() {
@@ -49,7 +49,5 @@ public class Coin {
 	}
 	public void setMint(String mint) {
 		this.mint = mint;
-	}
-	
-	
+	}	
 }

@@ -32,15 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/coins/all/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/coins/search/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/coins/edit**", "/api/coins/add**").hasRole("ADMIN")
-//              .antMatchers(HttpMethod.PUT, "/media/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/coins/delete/**").hasRole("ADMIN")
+//              .antMatchers(HttpMethod.PUT, "/media/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll()
 //                .formLogin().permitAll()
                 .and()
-                .logout().permitAll();
-//                .and().csrf().disable();
+                .logout().permitAll()
+                .and().csrf().disable();
 
     }
     

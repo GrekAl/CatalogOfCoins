@@ -22,8 +22,6 @@
 	<div class="mainHead">
             <form action="/logout" method="POST">
                 <input type="submit" value="Sign Out"/>
-                <input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
             </form>
         </div>
 	<div>
@@ -39,22 +37,19 @@
 				</tr>
 			</thead>
 		</table>
-		<button id="btn_test">Test</button>
 		<button id="btn_add">Add coin</button>
 		<button id="btn_search">Search</button>
 		<button id="btn_show_all">Show all</button>
 		<div id = "dialog-form" class="modal">
 		<form id="popup"  method="post" name="showP">
-		 <input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
 			<div class="content">
 				<div class="info_row">
-					<label>Id <input type="text" name="id" value="1"/></label> 
+					<label>Id <input type="number" name="id"/></label> 
 					<label> Currency <input type="text"
-						name="currency" value="1"/>
-					</label> <label> Value <input type="number" name="value" value="1"/>
-					</label> <label> Year <input type="number" name="year" value="1"/>
-					</label> <label> Mint <input type="text" name="mint" value="1"/>
+						name="currency" required/>
+					</label> <label> Value <input type="number" name="value"/>
+					</label> <label> Year <input type="number" name="year"/>
+					</label> <label> Mint <input type="text" name="mint"/>
 					</label>
 				</div>
 				<div class="button_row">

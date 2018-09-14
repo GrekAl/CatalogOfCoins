@@ -16,8 +16,6 @@
 		</#if>
 		<form role="form" method="post">
 		
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
 			<div>
 				<label for="username">Username</label> <input type="text"
 					name="username" id="username" required autofocus />

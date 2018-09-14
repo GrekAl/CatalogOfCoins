@@ -65,6 +65,8 @@ public class MainRESTController {
 		int pageNo = (start) / length + 1;
 		PageHelper.startPage(pageNo, length); 
 		Page<Coin> pageInfo = mapper.searchCoins(coin);
+		System.out.println(coin.getId());
+		System.out.println(coin.getCurrency().equals("") ? "true" : "false");
 
 		DataTableResultInfo dataTableResultInfo = new DataTableResultInfo();
 		dataTableResultInfo.setData(pageInfo);
@@ -83,7 +85,7 @@ public class MainRESTController {
 	  @ResponseBody*/
 	 
 	@PostMapping(value = "/add")
-	public void addCoin(@ModelAttribute @Valid Coin coin) {
+	public void addCoin(@ModelAttribute Coin coin) {
 		mapper.addCoin(coin);
 	}
 

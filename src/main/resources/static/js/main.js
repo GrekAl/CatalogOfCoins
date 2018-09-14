@@ -1,30 +1,20 @@
 $(function() {
 
-	//table.ajax.url( 'newData.json' ).load();
+	var table;
+	var admin;		
 	var form = $("form#popup");
-	var dataTableOptions = {
-	        ajax: {
-	            url: "api/coins/all",
-	            dataSrc: "data",
-	        },
-	        columns: [
-	            { data: "id" },
-	            { data: "currency" },
-	            { data: "value" },
-	            { data: "year" },
-	            { data: "mint" },
-	            { data: null }
-	        ],
-	        columnDefs: [ {
-	            targets: -1,
-	            defaultContent: getHtmlText()
-	        } ],
-	        searching: false,
-	        ordering:  false,
-	        serverSide: true,
-	        processing : true,
-	    };
-	var table = $('#list_coins').DataTable(dataTableOptions);
+	var dataTableOptions;
+	
+	$.ajax({
+        url: 'api/coins/edit',
+        type: 'POST',
+        complete: function(xhr, textStatus) {
+        	admin = xhr.status != 403;
+        	console.log(xhr.status);
+        	console.log(admin);
+        	initDateTable();
+        } 
+	});	
 	
 	$('#btn_test').click(function() {
 		$.ajax({
@@ -37,9 +27,13 @@ $(function() {
 	});
 	
 	function getHtmlText() {
-		return "<button class='dt-view'>View</button>" +
-				"<button class='dt-edit'>Edit</button>" +
-				"<button class='dt-delete'>Delete</button>";
+		var str = "<button class='dt-view'>View</button>";
+		if (admin == true) {
+			str+="<button class='dt-edit'>Edit</button>" +
+			"<button class='dt-delete'>Delete</button>";
+		}
+		console.log(str);
+		return str;
 	}
 	
 	function showModal(block) {
@@ -50,62 +44,87 @@ $(function() {
         });
 	}
 	
-	table.on('draw.dt',function(){
-		$(".dt-edit").each(function(){
-	        $(this).click(function() {
-	            var data = table.row($(this).parents('tr')).data();
-//	            var form = $("form#popup").show();
-	            showModal($("#dialog-form"));
-	            $("input").attr("readonly", false);
-	            fillForm(form, data);
-	            form.find(".button_row").append("<input name='edit' type='submit' class='btn btnInputSize brown' value='Save'/>");
-	            form.find("input[name='edit']").click(function(e) {
-	            	e.preventDefault();
-	            	$.post({
-	                    url: 'api/coins/edit',
-	                    data: form.serialize(),
-	                    success: function(result) {
-	                    	table.draw(false);
-	                    	$.modal.close();
-	                    },
-	                    error: function(jqXHR, exception) {
-	                    	console.log(jqXHR);
-	                    }
-	                  });
-	            	
-	            });
-	        });
-	    });
-		$(".dt-view").each(function(){
-	        $(this).click(function() {
-	            var data = table.row($(this).parents('tr')).data();
-	            showModal($("#dialog-form"));
-	            $("input").attr("readonly", true);
-	            fillForm(form, data);
-	        });
-	    });
-		$(".dt-delete").each(function(){
-	        $(this).click(function() {
-	        	var data = table.row($(this).parents('tr')).data();
-	        	$("#dialog-message").text("Are you sure you want to delete coin with id = "+ data.id);
-	        	showModal($("#dialog-confirm"));
-	        	$(".bt-confirm").one("click", function() {
-	        		console.log("delete");
-	        		$.ajax({
-	        	        url: 'api/coins/delete/'+ data.id,
-	        	        type: 'DELETE',
-	        	        success: function(result) {
-	        	        	table.draw(false);
-	        	        	$.modal.close();
-	        	        },
-	        	        error: function(jqXHR, exception) {
-		                    console.log(jqXHR);
-		                }
-	        		});
-	        	});
-	        });
-	    });
-	});
+	function initDateTable() {
+    	dataTableOptions = {
+    	        ajax: {
+    	            url: "api/coins/all",
+    	            dataSrc: "data",
+    	        },
+    	        columns: [
+    	            { data: "id" },
+    	            { data: "currency" },
+    	            { data: "value" },
+    	            { data: "year" },
+    	            { data: "mint" },
+    	            { data: null }
+    	        ],
+    	        columnDefs: [ {
+    	            targets: -1,
+    	            defaultContent: getHtmlText(),
+    	        } ],
+    	        searching: false,
+    	        ordering:  false,
+    	        serverSide: true,
+    	        processing : true,
+    	    };
+    	table = $('#list_coins').DataTable(dataTableOptions);
+		table.on('draw.dt',function(){
+			$(".dt-edit").each(function(){
+		        $(this).click(function() {
+		            var data = table.row($(this).parents('tr')).data();
+//		            var form = $("form#popup").show();
+		            showModal($("#dialog-form"));
+		            $("input").attr("readonly", false);
+		            fillForm(form, data);
+		            form.find(".button_row").append("<input name='edit' type='submit' class='btn btnInputSize brown' value='Save'/>");
+		            form.find("input[name='edit']").click(function(e) {
+		            	e.preventDefault();
+		            	$.post({
+		                    url: 'api/coins/edit',
+		                    data: form.serialize(),
+		                    success: function(result) {
+		                    	table.draw(false);
+		                    	$.modal.close();
+		                    },
+		                    error: function(jqXHR, exception) {
+		                    	console.log(jqXHR);
+		                    }
+		                  });
+		            	
+		            });
+		        });
+		    });
+			$(".dt-view").each(function(){
+		        $(this).click(function() {
+		            var data = table.row($(this).parents('tr')).data();
+		            showModal($("#dialog-form"));
+		            $("input").attr("readonly", true);
+		            fillForm(form, data);
+		        });
+		    });
+			$(".dt-delete").each(function(){
+		        $(this).click(function() {
+		        	var data = table.row($(this).parents('tr')).data();
+		        	$("#dialog-message").text("Are you sure you want to delete coin with id = "+ data.id);
+		        	showModal($("#dialog-confirm"));
+		        	$(".bt-confirm").one("click", function() {
+		        		console.log("delete");
+		        		$.ajax({
+		        	        url: 'api/coins/delete/'+ data.id,
+		        	        type: 'DELETE',
+		        	        success: function(result) {
+		        	        	table.draw(false);
+		        	        	$.modal.close();
+		        	        },
+		        	        error: function(jqXHR, exception) {
+			                    console.log(jqXHR);
+			                }
+		        		});
+		        	});
+		        });
+		    });
+		});	
+	}
 	
 	$("#btn_add").click(function() {
 		showModal($("#dialog-form"));
@@ -137,6 +156,7 @@ $(function() {
 		$("input").attr("readonly", false);
 		//$("input[type='text']").val("");
 		//$("input[type='number']").val(0);
+		form[0].reset();
 		form.find(".button_row").append("<input name='search' type='submit' class='btn btnInputSize brown' value='Search'/>");
         form.find("input[name='search']").click(function(e) {
         	e.preventDefault();
@@ -146,10 +166,13 @@ $(function() {
                     url: "api/coins/search",
                     type: "POST",
                     data: function(d) {
-                        var frm_data = $('form').serializeArray();
+                        var frm_data = $('form#popup').serializeArray();
                         $.each(frm_data, function(key, val) {
                           d[val.name] = val.value;
                         });
+                    },
+                    error: function(jqXHR, exception) {
+                    	console.log(jqXHR);
                     }
                 };
         	table = $('#list_coins').DataTable(dataTableOptions);
