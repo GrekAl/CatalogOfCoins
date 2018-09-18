@@ -1,22 +1,33 @@
-h1 {
-    color:#0000FF;
-}
- 
-h2 {
-    color:#FF0000;
-}
- 
-table {
-    border-collapse: collapse;
-}
- 
-table th, table td {
-    padding: 5px;
+#logo {
+    background-image: url("../images/cash-stacks.png");
+    background-position: left; 
+    background-size: 100px 100px;
+  	background-repeat: no-repeat; 
+  	height: 100px;
+  	padding-top: 18px;
+  	padding-left: 110px;
 }
 
+.red {
+	color: red;
+}
 
-.table_button {
-    width: 100px;
-    height: 30px;
-    color: white;
+#logout {
+	text-align: right;
+}
+
+#panel-btns {
+	text-align: right;
+	height:35px;
+	padding-top:9px;
+}
+
+@media screen and (max-width: 767px) {
+	#panel-btns {
+		text-align: center;
+	}
+}
+
+.act {
+	padding-right: 10px;
 }
