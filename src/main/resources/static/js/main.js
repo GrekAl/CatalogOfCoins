@@ -19,7 +19,7 @@ $(function() {
 	        columnDefs: [ {
 	            targets: -1,
 	            defaultContent: "",
-	            width: "76px",
+	            width: 60,
 	        } ],
 	        searching: false,
 	        ordering:  false,
@@ -50,11 +50,12 @@ $(function() {
 	});
 	
 	function getHtmlText() {
-		var str = "<a href='#' class='dt-view act'><span class='glyphicon glyphicon-info-sign' data-toggle='tooltip' title='Show info'></span></a>";
+		var str = "<div class='panel-act'><a href='#' class='dt-view act'><span class='glyphicon glyphicon-info-sign' data-toggle='tooltip' title='Show info'></span></a>";
 		if (admin) {
 			str+="<a href='#' class='dt-edit act'><span class='glyphicon glyphicon-pencil' data-toggle='tooltip' title='Edit'></span></a>" +
 			"<a href='#' class='dt-delete act'><span class='glyphicon glyphicon-remove red' title='Delete'></span>";
 		}
+		str+="</div>";
 		console.log(str);
 		return str;
 	}
@@ -93,22 +94,26 @@ $(function() {
 //		            showModal($("#dialog-form"));
 		            $("input").attr("readonly", false);
 		            fillForm(form, data);
+		            $("#modal-dialog .modal-title").text("Edit coin with id="+data.id);
 		            $("#modal-dialog").find(".modal-footer").append("<input name='edit' type='submit' class='btn btn-primary' value='Save changes'/>");
+		            $("#popup").validator();
 		            console.log("edit");
 		            showModal($("#modal-dialog"));
-		            $("#modal-dialog").find("input[name='edit']").click(function(e) {
-		            	e.preventDefault();
-		            	$.post({
-		                    url: 'api/coins/edit',
-		                    data: form.serialize(),
-		                    success: function(result) {
-		                    	table.draw(false);
-		                    	$("#modal-dialog").modal("hide");
-		                    },
-		                    error: function(jqXHR, exception) {
-		                    	console.log(jqXHR);
-		                    }
-		                  });
+		            $("#modal-dialog form").validator().on('submit', function(e) {
+		            	if (!e.isDefaultPrevented()) {
+			            	e.preventDefault();
+			            	$.post({
+			                    url: 'api/coins/edit',
+			                    data: form.serialize(),
+			                    success: function(result) {
+			                    	table.draw(false);
+			                    	$("#modal-dialog").modal("hide");
+			                    },
+			                    error: function(jqXHR, exception) {
+			                    	console.log(jqXHR);
+			                    }
+			                  });
+		            	}
 		            	
 		            });
 		        });
@@ -117,6 +122,7 @@ $(function() {
 		        $(this).click(function() {
 		            var data = table.row($(this).parents('tr')).data();
 		            console.log("show");
+		            $("#modal-dialog .modal-title").text("Coin with id="+data.id);
 		            showModal($("#modal-dialog"));
 		            $("input").attr("readonly", true);
 		            fillForm(form, data);
@@ -151,22 +157,26 @@ $(function() {
 				$("input").attr("readonly", false);
 				form[0].reset();
 				$("#modal-dialog").find(".modal-footer").append("<input name='add' type='submit' class='btn btn-primary' value='Add'/>");
+				$("#modal-dialog .modal-title").text("Add coin");				
+				$("#popup").validator();
 				console.log("add");
 				showModal($("#modal-dialog"));	
-				$("#modal-dialog").find("input[name='add']").click(function(e) {
-		        	e.preventDefault();
-		        	$.post({
-		                url: 'api/coins/add',
-		                data: form.serialize(),
-		                success: function(result) {
-		                	table.draw(false);
-		                	$("#modal-dialog").modal("hide");
-		                },
-		                error: function(jqXHR, exception, error) {
-		                	console.log(jqXHR);
-		                	alert(jqXHR.responseText);
-		                }
-		              });
+				$("#modal-dialog form").validator().on('submit', function(e) {
+					if (!e.isDefaultPrevented()) {
+			        	e.preventDefault();
+			        	$.post({
+			                url: 'api/coins/add',
+			                data: form.serialize(),
+			                success: function(result) {
+			                	table.draw(false);
+			                	$("#modal-dialog").modal("hide");
+			                },
+			                error: function(jqXHR, exception, error) {
+			                	console.log(jqXHR);
+			                	alert(jqXHR.responseText);
+			                }
+			              });
+					}
 		        	
 		        });	
 			});
@@ -178,6 +188,8 @@ $(function() {
 				//$("input[type='text']").val("");
 				//$("input[type='number']").val(0);
 				form[0].reset();
+				$("#modal-dialog .modal-title").text("Search coin");
+				$("#id").show();
 				$("#modal-dialog").find(".modal-footer").append("<input name='search' type='submit' class='btn btn-primary' value='Search'/>");
 				$("#modal-dialog").find("input[name='search']").click(function(e) {
 		        	e.preventDefault();
@@ -235,7 +247,9 @@ $(function() {
 
 	$('#modal-dialog').on('hidden.bs.modal', function (e) {
 		console.log("hide");
+		//$("#popup").validator("destroy");
 		$(this).find("input[type='submit']").remove();
+		$("#id").hide();
 	})
 /*	$(".bt-close").click(function(e) {
 		e.preventDefault();

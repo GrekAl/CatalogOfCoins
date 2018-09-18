@@ -19,6 +19,9 @@
 	src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+	
 
 <script type="text/javascript" src="js/main.js"></script>
 
@@ -27,22 +30,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<div class="page-header">
-					<div class="row">
-						<div id="logo" class="col-md-8">
-							<h2>Catalog of coins</h2>
-						</div>
-						<div class="col-md-4">
-							<form id="logout" action="/logout" method="POST">
-								<input type="submit" class="btn btn-link" value="Sign Out" />
-							</form>
-						</div>
-					</div>
-				</div>
+			<div class="header clearfix">
+        <form id="logout" action="/logout" method="POST" class="nav nav-pills pull-right">
+			<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
+		</form>
+		<div id="logo">
+        	<h3>Catalog of coins</h3>
+        </div>
+      </div>
+				
 				<table id="list_coins" class="table table-striped table-bordered">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th>ID</th>
 							<th>Currency</th>
 							<th>Value</th>
 							<th>Year</th>
@@ -65,10 +65,10 @@
 							<div class="modal-body">
 								<form id="popup" class="form-horizontal" method="post"
 									role="form">
-									<div class="form-group">
+									<div id="id" class="form-group">
 										<label class="col-sm-2 control-label" for="id">Id</label>
 										<div class="col-sm-10">
-											<input type="number" readonly class="form-control" name="id"
+											<input type="text" class="form-control" name="id"
 												placeholder="Id" />
 										</div>
 									</div>
@@ -76,35 +76,39 @@
 										<label class="col-sm-2 control-label" for="currency">Currency</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" name="currency"
-												placeholder="Currency" />
+												placeholder="Currency" required="required" data-error="This field is required"/>
+											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="value">Value</label>
 										<div class="col-sm-10">
-											<input type="number" class="form-control" name="value"
-												placeholder="Value" />
+											<input type="text" pattern="\d*" maxlength="4" class="form-control" name="value"
+												placeholder="Value" required="required" data-error="Please, enter a valid value"/>
+											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="year">Year</label>
 										<div class="col-sm-10">
-											<input type="number" class="form-control" name="year"
-												placeholder="Year" />
+											<input type="text" pattern="\d*" maxlength="4" class="form-control" name="year"
+												placeholder="Year" required="required" data-error="Please, enter a valid year"/>
+											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="mint">Mint</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" name="mint"
-												placeholder="Mint" />
+												placeholder="Mint" required="required" data-error="This field is required"/>
+											<div class="help-block with-errors"></div>
 										</div>
 									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div>
 								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
@@ -125,7 +129,7 @@
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true">&times;</button>
-								<h4 class="modal-title">My Modal</h4>
+								<h4 class="modal-title">Сonfirm deletion</h4>
 							</div>
 							<div class="modal-body"></div>
 							<div class="modal-footer">
@@ -136,6 +140,9 @@
 						</div>
 					</div>
 				</div>
+				<footer class="footer">
+        <p>© 2018 Catalog of coins</p>
+      </footer>
 			</div>
 		</div>
 	</div>
