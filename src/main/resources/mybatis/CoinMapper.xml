@@ -8,6 +8,7 @@
         <result column="value" property="value"/>
         <result column="year" property="year"/>
         <result column="mint" property="mint"/>
+        <result column="description" property="description"/>
     </resultMap>
 
     <select id="getAllCoins" resultMap="coinResultMap">
@@ -15,7 +16,7 @@
     </select>
     
     <update id="updateCoin" parameterType="Coin">  
-    	UPDATE public.coin SET currency=#{currency}, value=#{value}, year=#{year}, mint=#{mint} WHERE id=#{id} 
+    	UPDATE public.coin SET currency=#{currency}, value=#{value}, year=#{year}, mint=#{mint}, description=#{description} WHERE id=#{id} 
     </update>
     
     <delete id="deleteCoinById" parameterType="int">  
@@ -23,7 +24,7 @@
     </delete> 
     
     <insert id="addCoin" parameterType="Coin">  
-    	INSERT INTO public.coin(id, currency, value, year, mint) VALUES (#{id}, #{currency},#{value},#{year},#{mint})  
+    	INSERT INTO public.coin(id, currency, value, year, mint, description) VALUES (#{id}, #{currency},#{value},#{year},#{mint},#{description})  
 	    <selectKey keyProperty="id" resultType="int" order="BEFORE">   
 	     	SELECT nextVal('id_seq')  
 	    </selectKey> 
@@ -37,6 +38,7 @@
 	    		<if test="value != null"> AND value=#{value}</if>
 	    		<if test="year != null"> AND year=#{year}</if>
 	    		<if test="mint != ''"> AND mint like  '%'||#{mint}||'%'</if>
+	    		<if test="description != ''"> AND description like  '%'||#{description}||'%'</if>
 	    	</where> 
 	    ORDER BY id ASC
     </select>

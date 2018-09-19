@@ -36,6 +36,7 @@ $(function() {
         	console.log(admin);
         	initDateTable(dataTableOptions);
         	setEvents();
+			//$("#popup").validator();
         } 
 	});	
 	
@@ -92,11 +93,12 @@ $(function() {
 		            var data = table.row($(this).parents('tr')).data();
 //		            var form = $("form#popup").show();
 //		            showModal($("#dialog-form"));
-		            $("input").attr("readonly", false);
+		            $("#modal-dialog input").attr("readonly", false);
+		            $("#modal-dialog textarea").attr("readonly", false);
 		            fillForm(form, data);
 		            $("#modal-dialog .modal-title").text("Edit coin with id="+data.id);
 		            $("#modal-dialog").find(".modal-footer").append("<input name='edit' type='submit' class='btn btn-primary' value='Save changes'/>");
-		            $("#popup").validator();
+					$("#modal-dialog form").off();
 		            console.log("edit");
 		            showModal($("#modal-dialog"));
 		            $("#modal-dialog form").validator().on('submit', function(e) {
@@ -113,8 +115,7 @@ $(function() {
 			                    	console.log(jqXHR);
 			                    }
 			                  });
-		            	}
-		            	
+		            	}		            	
 		            });
 		        });
 		    });
@@ -123,9 +124,10 @@ $(function() {
 		            var data = table.row($(this).parents('tr')).data();
 		            console.log("show");
 		            $("#modal-dialog .modal-title").text("Coin with id="+data.id);
-		            showModal($("#modal-dialog"));
-		            $("input").attr("readonly", true);
+		            $("#modal-dialog input").attr("readonly", true);
+		            $("#modal-dialog textarea").attr("readonly", true);
 		            fillForm(form, data);
+		            showModal($("#modal-dialog"));
 		        });
 		    });
 			$(".dt-delete").each(function(){
@@ -154,14 +156,16 @@ $(function() {
 		
 		table.on('init.dt',function() {
 			$("#dt-add").click(function() {
-				$("input").attr("readonly", false);
+				$("#modal-dialog input").attr("readonly", false);
+				$("#modal-dialog textarea").attr("readonly", false);
 				form[0].reset();
-				$("#modal-dialog").find(".modal-footer").append("<input name='add' type='submit' class='btn btn-primary' value='Add'/>");
+				$("#modal-dialog").find(".modal-footer").append("<input name='add' type='submit' class='btn btn-primary' value='Add'>");
 				$("#modal-dialog .modal-title").text("Add coin");				
-				$("#popup").validator();
 				console.log("add");
-				showModal($("#modal-dialog"));	
+				showModal($("#modal-dialog"));
+				$("#modal-dialog form").off();
 				$("#modal-dialog form").validator().on('submit', function(e) {
+					console.log(e.isDefaultPrevented());
 					if (!e.isDefaultPrevented()) {
 			        	e.preventDefault();
 			        	$.post({
@@ -175,7 +179,7 @@ $(function() {
 			                	console.log(jqXHR);
 			                	alert(jqXHR.responseText);
 			                }
-			              });
+			            });
 					}
 		        	
 		        });	
@@ -184,7 +188,8 @@ $(function() {
 			$("#dt-search").click(function() {
 				showModal($("#modal-dialog"));
 				console.log("search");
-				$("input").attr("readonly", false);
+				$("#modal-dialog input").attr("readonly", false);
+				$("#modal-dialog textarea").attr("readonly", false);
 				//$("input[type='text']").val("");
 				//$("input[type='number']").val(0);
 				form[0].reset();
@@ -243,12 +248,13 @@ $(function() {
 		form.find( "input[name='value']" ).val(data.value);
 		form.find( "input[name='year']" ).val(data.year);
 		form.find( "input[name='mint']" ).val(data.mint);
+		form.find( "textarea[name='description']" ).val(data.description);
 	}
 
 	$('#modal-dialog').on('hidden.bs.modal', function (e) {
 		console.log("hide");
-		//$("#popup").validator("destroy");
 		$(this).find("input[type='submit']").remove();
+		$("#popup").validator("destroy");
 		$("#id").hide();
 	})
 /*	$(".bt-close").click(function(e) {

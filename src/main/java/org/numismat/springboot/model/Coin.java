@@ -7,6 +7,7 @@ public class Coin {
 	private Integer value;
 	private Integer year;
 	private String mint;
+	private String description;
 	
 	public Coin() {
 		
@@ -49,5 +50,12 @@ public class Coin {
 	}
 	public void setMint(String mint) {
 		this.mint = mint;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}	
+	
 }

@@ -31,14 +31,13 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 			<div class="header clearfix">
-        <form id="logout" action="/logout" method="POST" class="nav nav-pills pull-right">
-			<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
-		</form>
-		<div id="logo">
-        	<h3>Catalog of coins</h3>
-        </div>
-      </div>
-				
+		        <form id="logout" action="/logout" method="POST" class="nav nav-pills pull-right">
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
+				</form>
+				<div id="logo">
+		        	<h3>Catalog of coins</h3>
+		        </div>
+     		</div>				
 				<table id="list_coins" class="table table-striped table-bordered">
 					<thead>
 						<tr>
@@ -102,6 +101,12 @@
 											<input type="text" class="form-control" name="mint"
 												placeholder="Mint" required="required" data-error="This field is required"/>
 											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="description">Description</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" name="description" rows="5" placeholder="Description"></textarea>
 										</div>
 									</div>
 									<div class="modal-footer">
