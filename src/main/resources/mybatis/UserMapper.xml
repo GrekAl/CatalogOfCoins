@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.numismat.springboot.mapper.UserMapper" >
     <select id="getUserByLogin" parameterType="String"  resultType="User">
-        SELECT * FROM public.user WHERE login = #{login}
+        SELECT * FROM catalog.user WHERE login = #{login}
     </select>
 </mapper>

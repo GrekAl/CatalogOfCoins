@@ -59,7 +59,7 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title">Modal title</h4>
+								<h4 class="modal-title"></h4>
 							</div>
 							<div class="modal-body">
 								<form id="popup" class="form-horizontal" method="post"
@@ -67,15 +67,14 @@
 									<div id="id" class="form-group">
 										<label class="col-sm-2 control-label" for="id">Id</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" name="id"
-												placeholder="Id" />
+											<input type="text" class="form-control" name="id"/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="currency">Currency</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" name="currency"
-												placeholder="Currency" required="required" data-error="This field is required"/>
+												required="required" data-error="This field is required"/>
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
@@ -83,7 +82,7 @@
 										<label class="col-sm-2 control-label" for="value">Value</label>
 										<div class="col-sm-10">
 											<input type="text" pattern="\d*" maxlength="4" class="form-control" name="value"
-												placeholder="Value" required="required" data-error="Please, enter a valid value"/>
+												required="required" data-error="Please, enter a valid value"/>
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
@@ -91,7 +90,7 @@
 										<label class="col-sm-2 control-label" for="year">Year</label>
 										<div class="col-sm-10">
 											<input type="text" pattern="\d*" maxlength="4" class="form-control" name="year"
-												placeholder="Year" required="required" data-error="Please, enter a valid year"/>
+												required="required" data-error="Please, enter a valid year"/>
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
@@ -99,14 +98,14 @@
 										<label class="col-sm-2 control-label" for="mint">Mint</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" name="mint"
-												placeholder="Mint" required="required" data-error="This field is required"/>
+												required="required" data-error="This field is required"/>
 											<div class="help-block with-errors"></div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="description">Description</label>
 										<div class="col-sm-10">
-											<textarea class="form-control" name="description" rows="5" placeholder="Description"></textarea>
+											<textarea class="form-control" name="description" rows="5"></textarea>
 										</div>
 									</div>
 									<div class="modal-footer">

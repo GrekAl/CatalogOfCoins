@@ -15,14 +15,14 @@
 			<div class="col-md-4 col-md-offset-4">
 				<div id="login" class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Login with Username and Password</h3>
+						<h3 class="panel-title">Login with username and password</h3>
 					</div>
 					<div class="panel-body">
 						<#if logout>
 							<div class="alert alert-info" role="alert">You've been logged out successfully.</div>
 						</#if>
 						<#if error>
-							<div class="alert alert-danger" role="alert">Invalid Username or Password!</div>
+							<div class="alert alert-danger" role="alert">Invalid username or password!</div>
 						</#if>
 						<form role="form" method="post">
 

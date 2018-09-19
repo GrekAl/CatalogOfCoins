@@ -12,26 +12,23 @@
     </resultMap>
 
     <select id="getAllCoins" resultMap="coinResultMap">
-        SELECT * FROM public.coin ORDER BY id ASC
+        SELECT * FROM catalog.coin ORDER BY id ASC
     </select>
     
     <update id="updateCoin" parameterType="Coin">  
-    	UPDATE public.coin SET currency=#{currency}, value=#{value}, year=#{year}, mint=#{mint}, description=#{description} WHERE id=#{id} 
+    	UPDATE catalog.coin SET currency=#{currency}, value=#{value}, year=#{year}, mint=#{mint}, description=#{description} WHERE id=#{id} 
     </update>
     
     <delete id="deleteCoinById" parameterType="int">  
-    	DELETE FROM public.coin WHERE id=#{id} 
+    	DELETE FROM catalog.coin WHERE id=#{id} 
     </delete> 
     
     <insert id="addCoin" parameterType="Coin">  
-    	INSERT INTO public.coin(id, currency, value, year, mint, description) VALUES (#{id}, #{currency},#{value},#{year},#{mint},#{description})  
-	    <selectKey keyProperty="id" resultType="int" order="BEFORE">   
-	     	SELECT nextVal('id_seq')  
-	    </selectKey> 
+    	INSERT INTO catalog.coin(currency, value, year, mint, description) VALUES (#{currency},#{value},#{year},#{mint},#{description})  
     </insert>
     
     <select id="searchCoins" parameterType="Coin"  resultMap="coinResultMap">  
-	    SELECT * FROM public.coin  
+	    SELECT * FROM catalog.coin  
 	    	<where>      
 	    		<if test="id != null">id=#{id}</if>    
 	    		<if test="currency != ''"> AND currency like '%'||#{currency}||'%'</if>
