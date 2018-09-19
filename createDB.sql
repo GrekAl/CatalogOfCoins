@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS catalog.coin
   year integer NOT NULL,
   mint character varying(255) NOT NULL,
   description character varying(255),
-  CONSTRAINT firstkey PRIMARY KEY (id)
+  CONSTRAINT coinkey PRIMARY KEY (id)
 );
 
 CREATE TABLE catalog."user"
